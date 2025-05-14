@@ -98,9 +98,34 @@ int is_valid(Node* n)
 }
 
 
-List* get_adj_nodes(Node* n){
-    List* list=createList();
-    return list;
+List* get_adj_nodes(Node* n)
+{
+  List* list=createList();
+  int fila = -1, col = -1;
+
+  for (int i = 0 ; i < 9 && fila == -1; i++)
+  {
+    for (int j = 0 ; i < 9 && fila == -1; j++)
+    {
+      if (n->sudo[i][j]==0)
+      {
+        fila = i;
+        col = j;
+      }
+    }
+  }
+
+  if (fila == -1 && col == -1) return list;
+
+  for (int numero = 1 ; numero <= 9 ; numero++)
+  {
+    Node* new = copy(n);
+    new->sudo[fila][col] = numero;
+    if (is_valid(new)) pushBack(list, new);
+    else free(new);
+  }
+
+  return list;
 }
 
 
