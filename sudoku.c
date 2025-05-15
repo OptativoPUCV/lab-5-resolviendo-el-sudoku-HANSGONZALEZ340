@@ -167,7 +167,23 @@ Node* DFS(Node* initial, int* cont)
       return current;
     }
 
+    List * ady = get_adj_nodes(current);
+    Node* ady_Node = first(ady);
+    while(ady_Node != NULL)
+    {
+      push(pila, ady_Node);
+      ady_Node = next(ady);
+    }
+    free(current);
+
+    while(!is_empty(ady))
+    {
+      pop(ady);
+    }
+    free(ady);
+
   }
+  free(pila);
 
   return NULL;
 }
